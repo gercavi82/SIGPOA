@@ -1,0 +1,11 @@
+<x-layouts.app title="Nuevo proceso POA">
+    <div class="max-w-3xl"><p class="text-sm font-semibold uppercase tracking-wide text-institutional-600">Control POA</p><h1 class="text-3xl font-bold">Nuevo proceso</h1>
+    <form method="POST" action="{{ route('poa-processes.store') }}" class="mt-6 grid gap-5 rounded-xl border border-slate-200 bg-white p-6 shadow-sm sm:grid-cols-2">@csrf
+        <div class="grid gap-2"><label class="font-semibold" for="planning_period_id">Período</label><select class="rounded-lg border border-slate-300 p-3" id="planning_period_id" name="planning_period_id" required>@foreach($periods as $period)<option value="{{ $period->id }}">{{ $period->year }}</option>@endforeach</select></div>
+        <div class="grid gap-2"><label class="font-semibold" for="phase">Fase</label><select class="rounded-lg border border-slate-300 p-3" id="phase" name="phase" required>@foreach($phases as $phase)<option value="{{ $phase->value }}">{{ str($phase->value)->replace('_',' ')->headline() }}</option>@endforeach</select></div>
+        <div class="grid gap-2 sm:col-span-2"><label class="font-semibold" for="responsible_user_id">Responsable</label><select class="rounded-lg border border-slate-300 p-3" id="responsible_user_id" name="responsible_user_id" required>@foreach($users as $user)<option value="{{ $user->id }}">{{ $user->name }}</option>@endforeach</select></div>
+        <div class="grid gap-2"><label class="font-semibold" for="opens_at">Apertura prevista</label><input class="rounded-lg border border-slate-300 p-3" id="opens_at" name="opens_at" type="datetime-local"></div><div class="grid gap-2"><label class="font-semibold" for="closes_at">Cierre previsto</label><input class="rounded-lg border border-slate-300 p-3" id="closes_at" name="closes_at" type="datetime-local"></div>
+        @if($errors->any())<div class="sm:col-span-2 rounded-lg bg-red-50 p-4 text-red-800"><ul class="list-disc pl-5">@foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul></div>@endif
+        <div class="flex gap-3 sm:col-span-2"><button class="rounded-lg bg-institutional-700 px-5 py-3 font-semibold text-white">Guardar</button><a href="{{ route('poa-processes.index') }}" class="rounded-lg border border-slate-300 px-5 py-3 font-semibold">Cancelar</a></div>
+    </form></div>
+</x-layouts.app>
